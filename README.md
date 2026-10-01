@@ -21,6 +21,30 @@ The built-in connection wizard can configure OneDrive, Google Drive, Dropbox,
 pCloud, Box, WebDAV, SMB/CIFS, Backblaze B2, S3-compatible storage, SFTP, and
 FTP/FTPS remotes. Remotes created earlier with `rclone config` remain supported.
 
+## Install
+
+The Debian package is the recommended installation method on Ubuntu 24.04.
+
+1. Download `talaryn_1.0.0_all.deb` from the
+   [latest release](https://github.com/k-krakowski/talaryn/releases/latest).
+2. In the directory containing the downloaded package, run:
+
+   ```bash
+   sudo apt install ./talaryn_1.0.0_all.deb
+   ```
+
+   APT installs the declared dependencies from your configured repositories.
+   Talaryn requires rclone 1.74.4 or newer; if your repositories do not provide
+   it, install an [official rclone package](https://rclone.org/install/) first.
+3. Restart Nautilus and launch Talaryn:
+
+   ```bash
+   nautilus -q
+   talaryn gui
+   ```
+
+See [Requirements](#requirements) for supported library versions and other
+installation details.
 
 ## Screenshots
 
