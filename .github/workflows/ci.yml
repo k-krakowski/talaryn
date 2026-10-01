@@ -1,0 +1,136 @@
+name: CI
+
+"on":
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y \
+            appstream \
+            desktop-file-utils \
+            dpkg-dev \
+            curl \
+            fuse3 \
+            gir1.2-adw-1 \
+            gir1.2-ayatanaappindicator3-0.1 \
+            gir1.2-gnomedesktop-4.0 \
+            gir1.2-gtk-3.0 \
+            gir1.2-gtk-4.0 \
+            libglib2.0-bin \
+            libnotify-bin \
+            python3-gi \
+            python3-gi-cairo \
+            python3-nautilus \
+            python3-pip \
+            python3-setuptools \
+            python3-wheel \
+            systemd \
+            xdg-utils \
+            zenity
+
+      - name: Install the supported rclone version
+        env:
+          RCLONE_RELEASE_VERSION: "1.74.4"
+          RCLONE_DEB_SHA256: a9da2eaa70428c6dcc5acbb0b7eac0faec4c61643e0b468d9fe09ddf79b7e929
+        run: |
+          deb="/tmp/rclone-v${RCLONE_RELEASE_VERSION}-linux-amd64.deb"
+          curl --fail --location --silent --show-error \
+            --output "$deb" \
+            "https://downloads.rclone.org/v${RCLONE_RELEASE_VERSION}/rclone-v${RCLONE_RELEASE_VERSION}-linux-amd64.deb"
+          printf '%s  %s\n' "$RCLONE_DEB_SHA256" "$deb" | sha256sum --check --strict
+          sudo apt-get install --no-install-recommends -y "$deb"
+          installed="$(rclone version | sed -n '1s/^rclone v//p')"
+          test "$installed" = "$RCLONE_RELEASE_VERSION"
+
+      - name: Check whitespace and shell syntax
+        run: |
+          empty_tree="$(git hash-object -t tree /dev/null)"
+          git diff --check "$empty_tree"
+          bash -n install.sh uninstall.sh packaging/build-deb.sh
+
+      - name: Run unit tests
+        env:
+          PYTHONPATH: src
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Compile Python sources
+        run: python3 -m compileall -q src data/nautilus
+
+      - name: Build Python package metadata with system setuptools
+        run: |
+          python3 -m pip wheel \
+            --no-build-isolation \
+            --no-deps \
+            --wheel-dir /tmp/talaryn-wheel \
+            .
+
+      - name: Validate desktop entry
+        run: |
+          sed 's|@EXEC@|/usr/bin/talaryn|g' \
+            data/applications/io.github.k_krakowski.Talaryn.desktop.in \
+            > /tmp/io.github.k_krakowski.Talaryn.desktop
+          sed 's|@EXEC@|/usr/bin/talaryn|g' \
+            data/applications/io.github.k_krakowski.Talaryn.Comparison.desktop.in \
+            > /tmp/io.github.k_krakowski.Talaryn.Comparison.desktop
+          desktop-file-validate /tmp/io.github.k_krakowski.Talaryn*.desktop
+
+      - name: Validate AppStream metadata
+        run: |
+          version="$(sed -n 's/^__version__ = "\([^"]*\)"$/\1/p' src/talaryn/__init__.py)"
+          release_date="$(sed -n 's/^__release_date__ = "\([^"]*\)"$/\1/p' src/talaryn/__init__.py)"
+          sed -e "s|@VERSION@|$version|g" \
+            -e "s|@RELEASE_DATE@|$release_date|g" \
+            data/metainfo/io.github.k_krakowski.Talaryn.metainfo.xml.in \
+            > /tmp/io.github.k_krakowski.Talaryn.metainfo.xml
+          appstreamcli validate --no-net \
+            /tmp/io.github.k_krakowski.Talaryn.metainfo.xml
+
+      - name: Build and inspect reproducible Debian package
+        run: |
+          PUBLIC_RELEASE=1 ./packaging/build-deb.sh
+          version="$(sed -n 's/^__version__ = "\([^"]*\)"$/\1/p' src/talaryn/__init__.py)"
+          deb="$PWD/dist/talaryn_${version}_all.deb"
+          test -s "$deb"
+          test "$(dpkg-deb --field "$deb" Version)" = "$version"
+          dpkg-deb --info "$deb"
+          dpkg-deb --contents "$deb" > /tmp/talaryn-deb-contents.txt
+          grep -F 'usr/share/doc/talaryn/copyright' \
+            /tmp/talaryn-deb-contents.txt
+
+          mkdir -p /tmp/talaryn-deb-root /tmp/talaryn-deb-control
+          dpkg-deb --extract "$deb" /tmp/talaryn-deb-root
+          dpkg-deb --control "$deb" /tmp/talaryn-deb-control
+          test -s /tmp/talaryn-deb-control/md5sums
+          (
+            cd /tmp/talaryn-deb-root
+            md5sum --check /tmp/talaryn-deb-control/md5sums
+          )
+
+          cp "$deb" /tmp/talaryn-first.deb
+          PUBLIC_RELEASE=1 ./packaging/build-deb.sh
+          cmp /tmp/talaryn-first.deb "$deb"
+          sudo apt-get install --no-install-recommends -y "$deb"
+          installed="$(dpkg-query --show --showformat='${Version}' talaryn)"
+          test "$installed" = "$version"

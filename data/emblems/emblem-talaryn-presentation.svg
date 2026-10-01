@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Presentation</title>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#091f55" stroke="#fff" stroke-width="2"/>
+  <path d="M11 7h30l12 12v38H11z" fill="#fff"/>
+  <path d="M41 7v12h12z" fill="#9fc1ff"/>
+  <rect x="17" y="27" width="30" height="19" rx="3" fill="#b32656"/>
+  <path d="m28 32 10 5-10 5z" fill="#fff"/>
+  <path d="M32 46v5M25 52h14" fill="none" stroke="#b32656" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

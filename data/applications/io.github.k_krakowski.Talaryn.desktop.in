@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Talaryn
+Comment=Give your cloud wings
+Comment[pl]=Give your cloud wings
+Comment[ru]=Give your cloud wings
+Exec=@EXEC@ gui
+TryExec=talaryn
+Icon=talaryn
+Terminal=false
+Categories=System;FileManager;FileTools;
+Keywords=rclone;cloud;mount;sync;storage;
+StartupNotify=true

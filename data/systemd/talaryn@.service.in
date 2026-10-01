@@ -1,0 +1,12 @@
+[Unit]
+Description=Talaryn profile %i
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=@EXEC@ mount-foreground %i
+ExecStop=@EXEC@ unmount-raw %i
+Restart=no
+
+[Install]
+WantedBy=default.target

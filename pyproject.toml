@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "talaryn"
+dynamic = ["version"]
+description = "Talaryn is a graphical Linux interface for mounting cloud and remote storage as local drives using rclone."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Kamil Krakowski", email = "k.krakowski.dev@gmail.com" }
+]
+keywords = ["rclone", "gtk", "mount", "fuse", "nautilus"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Desktop Environment :: File Managers",
+  "Topic :: System :: Filesystems",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/k-krakowski/talaryn"
+Issues = "https://github.com/k-krakowski/talaryn/issues"
+Changelog = "https://github.com/k-krakowski/talaryn/blob/main/CHANGELOG.md"
+
+[project.scripts]
+talaryn = "talaryn.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "talaryn.__version__" }

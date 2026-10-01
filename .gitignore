@@ -1,0 +1,46 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+build/
+dist/
+.venv/
+.env
+.env.*
+.DS_Store
+*.swp
+*~
+profiles.json
+settings.json
+state.json
+*.log
+*.deb
+
+# Local credentials, state, and editor files
+.aws/
+rclone.conf
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.pem
+*.key
+*.p12
+*.pfx
+.idea/
+.vscode/
+
+# Local assistant workspace metadata
+.codex/
+.agents/
+
+# Local disposable data used to prepare public screenshots
+.screenshot-demo/

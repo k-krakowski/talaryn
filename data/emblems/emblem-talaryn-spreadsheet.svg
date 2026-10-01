@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Spreadsheet</title>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#091f55" stroke="#fff" stroke-width="2"/>
+  <path d="M11 7h30l12 12v38H11z" fill="#fff"/>
+  <path d="M41 7v12h12z" fill="#9fc1ff"/>
+  <rect x="17" y="27" width="30" height="23" rx="2.5" fill="#24a955"/>
+  <path d="M27 28v21M37 28v21M18 35h28M18 42h28" fill="none" stroke="#fff" stroke-width="2.5"/>
+</svg>

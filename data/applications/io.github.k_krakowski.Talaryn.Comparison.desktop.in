@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Talaryn File Comparison
+Name[pl]=Porównywarka plików Talaryn
+Comment=Compare marked files with another selection
+Comment[pl]=Porównaj zaznaczone pliki z innym zestawem
+Exec=@EXEC@ compare
+TryExec=talaryn
+Icon=talaryn
+Terminal=false
+NoDisplay=true
+Categories=System;FileManager;FileTools;
+StartupNotify=true

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 345 345"
+   version="1.1">
+  <title
+     id="title">Talaryn</title>
+  <desc
+     id="desc">The winged T symbol used by Talaryn.</desc>
+  <circle
+     style="fill:#f8f8f8;fill-opacity:1;stroke:#001941;stroke-width:1.20217;stroke-opacity:0.501961"
+     id="path6"
+     cx="172.44785"
+     cy="172.62778"
+     r="170.41016" />
+  <g
+     fill="url(#brand)"
+     stroke="#061941"
+     stroke-width="1.6"
+     stroke-linejoin="round"
+     id="g3"
+     style="fill:#091f55;stroke:none;stroke-opacity:1;fill-opacity:1"
+     transform="translate(-8.9455362,46.908874)">
+    <path
+       d="m 40,55 h 290 l -14,12 q -10,8 -25,11 l -117,23 -9,137 -52,32 V 117 l 23,-13 H 54 Z"
+       id="path2"
+       style="fill:#091f55;stroke:none;stroke-opacity:1;fill-opacity:1" />
+    <path
+       d="M 187,114 296,90 q -16,18 -38,30 l -59,19 -1,14 64,-23 -79,65 z"
+       id="path3"
+       style="fill:#091f55;stroke:none;stroke-opacity:1;fill-opacity:1" />
+  </g>
+</svg>

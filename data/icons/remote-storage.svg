@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 128 128"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="remote-storage.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="drive"
+       x1="31"
+       y1="66"
+       x2="97"
+       y2="108"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1625397,0,0,1.1625397,-13.230043,-11.437114)">
+      <stop
+         offset="0"
+         stop-color="#173e8f"
+         id="stop5" />
+      <stop
+         offset="1"
+         stop-color="#091f55"
+         id="stop6" />
+    </linearGradient>
+    <linearGradient
+       id="cloud"
+       x1="32"
+       y1="25"
+       x2="96"
+       y2="70"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1625397,0,0,1.1625397,-15.052697,-18.019175)">
+      <stop
+         offset="0"
+         stop-color="#6597ea"
+         id="stop3" />
+      <stop
+         offset="1"
+         stop-color="#3264bd"
+         id="stop4" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.2787621"
+     inkscape:cx="68.238804"
+     inkscape:cy="69.116474"
+     inkscape:window-width="1854"
+     inkscape:window-height="1011"
+     inkscape:window-x="1986"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3" />
+  <rect
+     width="128"
+     height="128"
+     rx="24"
+     fill="#f6f7f8"
+     id="rect1" />
+  <path
+     d="m 29.12381,57.545905 h 60.452064 c 11.625396,0 20.925716,-8.137778 20.925716,-18.600635 0,-9.300318 -6.97524,-17.438095 -16.275558,-18.600635 C 89.575874,8.7192384 79.113017,1.744 66.32508,1.744 c -15.113016,0 -27.900952,10.462857 -30.226032,24.413333 -10.462857,1.16254 -18.600634,8.137778 -18.600634,16.275556 0,8.137778 4.650158,12.787936 11.625396,15.113016 z"
+     fill="url(#cloud)"
+     id="path6"
+     style="fill:url(#cloud);stroke:#ffffff;stroke-width:3.488;stroke-dasharray:none;stroke-opacity:1" />
+  <g
+     id="g3"
+     transform="translate(2.8275051,9.8137469)">
+    <rect
+       x="15.833448"
+       y="72.265747"
+       width="90.678093"
+       height="44.176506"
+       rx="11.625397"
+       fill="url(#drive)"
+       stroke="#ffffff"
+       stroke-width="3.48762"
+       id="rect7"
+       style="fill:url(#drive);stroke-width:3.488;stroke-dasharray:none" />
+    <path
+       d="M 32.109005,89.703839 H 75.122973"
+       fill="none"
+       stroke="#9fc1ff"
+       stroke-width="5.8127"
+       stroke-linecap="round"
+       id="path8" />
+    <circle
+       cx="89.073441"
+       cy="89.703835"
+       r="4.6501589"
+       fill="#78d8a6"
+       id="circle8"
+       style="stroke-width:1.16254" />
+    <path
+       d="M 28.621386,105.97939 H 93.723608"
+       fill="none"
+       stroke="#4369a8"
+       stroke-width="3.48762"
+       stroke-linecap="round"
+       id="path9" />
+  </g>
+  <ellipse
+     style="fill:#f8f8f8;stroke:#ffffff;stroke-width:4.92906;stroke-dasharray:none;stroke-opacity:1"
+     id="path3"
+     cx="64.440865"
+     cy="66.599136"
+     rx="26.639116"
+     ry="21.815573" />
+  <path
+     d="m 74.19697,56.599136 v 20 m -8,-8 8,8 8,-8"
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="path7"
+     style="stroke:#35ca70;stroke-opacity:1" />
+  <path
+     d="m 52.278182,76.599136 v -20 m -8,8 8,-8 8,8"
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="5"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="path7-9"
+     style="stroke:#bb2b57;stroke-opacity:1" />
+</svg>

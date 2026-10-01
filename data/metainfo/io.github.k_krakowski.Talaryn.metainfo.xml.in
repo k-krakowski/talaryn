@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.k_krakowski.Talaryn</id>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <developer id="io.github.k_krakowski">
+    <name>Kamil Krakowski</name>
+  </developer>
+  <url type="homepage">https://github.com/k-krakowski/talaryn</url>
+  <url type="bugtracker">https://github.com/k-krakowski/talaryn/issues</url>
+  <update_contact>k.krakowski.dev@gmail.com</update_contact>
+  <name>Talaryn</name>
+  <summary>Give your cloud wings</summary>
+  <summary xml:lang="pl">Give your cloud wings</summary>
+  <icon type="stock">talaryn</icon>
+  <description>
+    <p>
+      Talaryn is a graphical Linux interface for mounting cloud and remote
+      storage as local drives using rclone.
+    </p>
+    <ul>
+      <li>Configure supported cloud, object-storage, and network remotes.</li>
+      <li>Inspect transfer activity, speed, cache health, and remote quota.</li>
+      <li>Integrate synchronization state and actions with Nautilus.</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.k_krakowski.Talaryn.desktop</launchable>
+  <provides>
+    <binary>talaryn</binary>
+  </provides>
+  <categories>
+    <category>System</category>
+    <category>FileTools</category>
+  </categories>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="@VERSION@" date="@RELEASE_DATE@" type="stable" />
+  </releases>
+</component>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Document</title>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#091f55" stroke="#fff" stroke-width="2"/>
+  <path d="M11 7h30l12 12v38H11z" fill="#fff"/>
+  <path d="M41 7v12h12z" fill="#9fc1ff"/>
+  <path d="M19 29h26M19 38h26M19 47h18" fill="none" stroke="#3976d5" stroke-width="4.5" stroke-linecap="round"/>
+</svg>
