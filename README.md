@@ -5,21 +5,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/k-krakowski/talaryn/actions/workflows/ci.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/k-krakowski/talaryn/ci.yml?branch=main&amp;style=flat-square&amp;label=CI" alt="CI status">
-  </a>
-  <a href="https://github.com/k-krakowski/talaryn/releases/latest">
-    <img src="https://img.shields.io/github/v/release/k-krakowski/talaryn?display_name=tag&amp;sort=semver&amp;style=flat-square" alt="Latest release">
-  </a>
-  <a href="./LICENSE">
-    <img src="https://img.shields.io/github/license/k-krakowski/talaryn?style=flat-square" alt="MIT license">
-  </a>
-  <a href="#requirements">
-    <img src="https://img.shields.io/badge/platform-Linux-FCC624?style=flat-square&amp;logo=linux&amp;logoColor=black" alt="Linux">
-  </a>
-  <a href="#help-translate-talaryn">
-    <img src="https://img.shields.io/badge/translations-welcome-brightgreen?style=flat-square" alt="Translations welcome">
-  </a>
+  <a href="https://github.com/k-krakowski/talaryn/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/k-krakowski/talaryn/ci.yml?branch=main&amp;style=flat-square&amp;label=CI" alt="CI status"></a>
+  <a href="https://github.com/k-krakowski/talaryn/releases/latest"><img src="https://img.shields.io/github/v/release/k-krakowski/talaryn?display_name=tag&amp;sort=semver&amp;style=flat-square" alt="Latest release"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/k-krakowski/talaryn?style=flat-square" alt="MIT license"></a>
+  <a href="#requirements"><img src="https://img.shields.io/badge/platform-Linux-FCC624?style=flat-square&amp;logo=linux&amp;logoColor=black" alt="Linux"></a>
+  <a href="#help-translate-talaryn"><img src="https://img.shields.io/badge/translations-welcome-brightgreen?style=flat-square" alt="Translations welcome"></a>
 </p>
 
 *"Give your cloud wings"*
