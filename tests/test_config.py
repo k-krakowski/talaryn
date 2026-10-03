@@ -14,11 +14,29 @@ from talaryn.config import (
     profiles_for_remote,
     save_profile,
     save_profiles_data,
+    save_settings,
     update_sponsor_reminder_state,
 )
 
 
 class SettingsDefaultsTests(unittest.TestCase):
+    def test_saving_automount_settings_creates_tray_autostart(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings_file = root / "settings.json"
+            autostart_file = root / "autostart" / "talaryn.desktop"
+            with (
+                patch("talaryn.config.SETTINGS_FILE", settings_file),
+                patch("talaryn.config.AUTOSTART_FILE", autostart_file),
+                patch("talaryn.config.ensure_runtime_dirs"),
+                patch("talaryn.config.shutil.which", return_value="/usr/bin/talaryn") as which,
+            ):
+                save_settings({"automount_previous": True, "color_scheme": "dark"})
+
+            which.assert_called_once_with("talaryn")
+            self.assertTrue(json.loads(settings_file.read_text())["automount_previous"])
+            self.assertIn("Exec=/usr/bin/talaryn tray\n", autostart_file.read_text())
+
     def test_sponsor_reminder_state_preserves_mount_state(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             state_file = Path(directory) / "state.json"

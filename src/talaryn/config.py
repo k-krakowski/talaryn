@@ -14,7 +14,7 @@ import time
 from typing import Any
 
 from .activity_filter import DEFAULT_HIDDEN_ACTIVITY_PATTERNS, normalize_activity_patterns
-from .paths import APP_DISPLAY_NAME, APP_ICON_NAME, APP_ID, AUTOSTART_FILE, SETTINGS_FILE, STATE_FILE, PROFILES_FILE, ensure_runtime_dirs
+from .paths import APP, APP_DISPLAY_NAME, APP_ICON_NAME, APP_ID, AUTOSTART_FILE, SETTINGS_FILE, STATE_FILE, PROFILES_FILE, ensure_runtime_dirs
 from .util import safe_id
 
 
