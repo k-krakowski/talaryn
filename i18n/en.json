@@ -693,5 +693,14 @@
   "file_name_prompt": "Name:",
   "template_missing": "Template not found",
   "file_not_found": "File not found: {path}",
-  "google_file_exists": "A file named “{title}” already exists. Choose a different name."
+  "google_file_exists": "A file named “{title}” already exists. Choose a different name.",
+  "google_name_invalid": "Enter a valid document name.",
+  "google_create_invalid_folder": "Choose a folder inside a Google Drive mount.",
+  "google_name_checking": "Checking the name…",
+  "google_folder_refreshing": "Refreshing the folder…",
+  "google_file_open_preparing": "Preparing to open the document…",
+  "google_refresh_failed": "The document was created, but the folder could not be refreshed. Retry refreshing or check the document in Google Drive.",
+  "google_create_button": "Create",
+  "google_refresh_retry": "Refresh folder again",
+  "google_create_launch_failed": "Could not start the Talaryn Google document dialog."
 }

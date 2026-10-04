@@ -74,6 +74,7 @@ rm -f "$DATA_DIR/THIRD_PARTY_NOTICES.md" "$DATA_DIR/LICENSE"
 rmdir "$DATA_DIR" >/dev/null 2>&1 || true
 rm -f "$APP_DIR/io.github.k_krakowski.Talaryn.desktop"
 rm -f "$APP_DIR/io.github.k_krakowski.Talaryn.Comparison.desktop"
+rm -f "$APP_DIR/io.github.k_krakowski.Talaryn.GoogleCreate.desktop"
 rm -f "$AUTOSTART_FILE"
 rm -f "$SYSTEMD_DIR/talaryn@.service"
 rm -f "$SYSTEMD_DIR/talaryn-monitor.service"

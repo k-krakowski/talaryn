@@ -242,6 +242,9 @@ sed "s|@EXEC@|$EXEC_PATH|g" \
 sed "s|@EXEC@|$EXEC_PATH|g" \
   "$ROOT/data/applications/io.github.k_krakowski.Talaryn.Comparison.desktop.in" \
   > "$APP_DIR/io.github.k_krakowski.Talaryn.Comparison.desktop"
+sed "s|@EXEC@|$EXEC_PATH|g" \
+  "$ROOT/data/applications/io.github.k_krakowski.Talaryn.GoogleCreate.desktop.in" \
+  > "$APP_DIR/io.github.k_krakowski.Talaryn.GoogleCreate.desktop"
 
 # Remove obsolete per-user installation files only after the new launcher and
 # services are in place. User configuration and cache are migrated at startup.

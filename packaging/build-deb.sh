@@ -116,6 +116,9 @@ sed "s|@EXEC@|/usr/bin/$APP|g" \
 sed "s|@EXEC@|/usr/bin/$APP|g" \
   "$ROOT/data/applications/io.github.k_krakowski.Talaryn.Comparison.desktop.in" \
   > "$USR_APPS/io.github.k_krakowski.Talaryn.Comparison.desktop"
+sed "s|@EXEC@|/usr/bin/$APP|g" \
+  "$ROOT/data/applications/io.github.k_krakowski.Talaryn.GoogleCreate.desktop.in" \
+  > "$USR_APPS/io.github.k_krakowski.Talaryn.GoogleCreate.desktop"
 
 sed "s|@EXEC@|/usr/bin/$APP|g" \
   "$ROOT/data/systemd/talaryn@.service.in" \

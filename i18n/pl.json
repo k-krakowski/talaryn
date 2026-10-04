@@ -693,5 +693,14 @@
   "file_name_prompt": "Nazwa:",
   "template_missing": "Nie znaleziono szablonu",
   "file_not_found": "Nie znaleziono pliku: {path}",
-  "google_file_exists": "Plik o nazwie „{title}” już istnieje. Wybierz inną nazwę."
+  "google_file_exists": "Plik o nazwie „{title}” już istnieje. Wybierz inną nazwę.",
+  "google_name_invalid": "Wpisz prawidłową nazwę dokumentu.",
+  "google_create_invalid_folder": "Wybierz folder wewnątrz zamontowanego Dysku Google.",
+  "google_name_checking": "Sprawdzanie nazwy…",
+  "google_folder_refreshing": "Odświeżanie katalogu…",
+  "google_file_open_preparing": "Przygotowywanie do otwarcia dokumentu…",
+  "google_refresh_failed": "Dokument został utworzony, ale nie udało się odświeżyć katalogu. Ponów odświeżanie lub sprawdź dokument w Dysku Google.",
+  "google_create_button": "Utwórz",
+  "google_refresh_retry": "Odśwież katalog ponownie",
+  "google_create_launch_failed": "Nie udało się uruchomić okna tworzenia dokumentu Google Talaryn."
 }

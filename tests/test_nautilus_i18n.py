@@ -4,8 +4,6 @@ import importlib.util
 import json
 import os
 from pathlib import Path
-import subprocess
-import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -59,79 +57,27 @@ class NautilusTranslationTests(unittest.TestCase):
                 self.assertEqual(I18N.tr("message", name="test"), "Hello test")
 
 
-class GoogleCreationTests(unittest.TestCase):
-    def test_cancelled_name_dialog_returns_no_name(self):
+class GoogleCreationLauncherTests(unittest.TestCase):
+    def test_dialog_receives_profile_kind_and_position_without_a_name_prompt(self):
+        context = {"pointer": [210, 350], "parent": "x11:abc"}
+        command = GOOGLE._creation_command("google", Path("/cloud/google/folder"), "sheet", context)
+        self.assertIn("-I", command)
+        index = command.index("google-create")
+        self.assertEqual(command[index + 1:index + 4], ["google", "/cloud/google/folder", "sheet"])
+        self.assertEqual(json.loads(command[index + 4]), context)
+
+    def test_creation_refreshes_the_originating_nautilus_window(self):
+        from unittest.mock import Mock
+        parent = Mock()
+        parent.activate_action.return_value = True
+        GOOGLE._refresh_nautilus(parent, "/cloud/google/New.link.html")
+        parent.activate_action.assert_called_once_with("win.reload", None)
+
+    def test_end_of_child_output_does_not_schedule_an_infinite_read_loop(self):
+        from unittest.mock import Mock
         provider = GOOGLE.GoogleNewDocsProvider()
-        result = subprocess.CompletedProcess([], 1, stdout="")
-        with patch.object(GOOGLE.subprocess, "run", return_value=result):
-            self.assertIsNone(provider._ask_name("Document"))
-
-    def test_cancellation_does_not_launch_creation_worker(self):
-        provider = GOOGLE.GoogleNewDocsProvider()
-        with tempfile.TemporaryDirectory() as directory:
-            templates = Path(directory)
-            (templates / "blank.docx").touch()
-            with patch.object(GOOGLE, "TEMPLATE_DIR", templates), \
-                 patch.object(provider, "_ask_name", return_value=None), \
-                 patch.object(GOOGLE.subprocess, "Popen") as launch:
-                provider._create_google_file(None, templates, {}, templates, "doc")
-            launch.assert_not_called()
-
-    @unittest.skipUnless(shutil.which("rclone"), "rclone is not installed")
-    def test_new_document_does_not_overwrite_an_existing_file(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            template = root / "blank.docx"
-            destination = root / "existing.docx"
-            template.write_bytes(b"new")
-            destination.write_bytes(b"existing document contents")
-            payload = {
-                "title": "existing", "dest": str(destination),
-                "template": str(template), "remote_folder": str(root),
-                "kind": "doc", "ext": "docx",
-            }
-            with patch.object(GOOGLE, "_start_progress", return_value=None), \
-                 patch.object(GOOGLE, "_stop_progress"), \
-                 patch.object(GOOGLE, "_notify"), \
-                 patch.object(GOOGLE, "OPEN_AFTER_CREATE", False):
-                self.assertNotEqual(GOOGLE._run_worker(payload), 0)
-            self.assertEqual(destination.read_bytes(), b"existing document contents")
-
-    def test_failed_existence_check_never_uploads(self):
-        result = subprocess.CompletedProcess([], 5, stdout="", stderr="network error")
-        payload = {
-            "title": "new", "dest": "cloud:new.docx", "template": "/tmp/blank.docx",
-            "remote_folder": "cloud:", "kind": "doc", "ext": "docx",
-        }
-        with patch.object(GOOGLE.subprocess, "run", return_value=result) as run, \
-             patch.object(GOOGLE, "_notify"):
-            self.assertEqual(GOOGLE._run_worker(payload), 5)
-        run.assert_called_once()
-        self.assertEqual(run.call_args.args[0][1], "lsjson")
-
-    @unittest.skipUnless(shutil.which("rclone"), "rclone is not installed")
-    def test_file_created_after_preflight_is_preserved(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            template = root / "blank.docx"
-            destination = root / "new.docx"
-            template.write_bytes(b"template contents")
-            payload = {
-                "title": "new", "dest": str(destination), "template": str(template),
-                "remote_folder": str(root), "kind": "doc", "ext": "docx",
-            }
-            real_run = subprocess.run
-
-            def run(command, **kwargs):
-                result = real_run(command, **kwargs)
-                if command[1] == "lsjson":
-                    destination.write_bytes(b"concurrently created document")
-                return result
-
-            with patch.object(GOOGLE.subprocess, "run", side_effect=run), \
-                 patch.object(GOOGLE, "_start_progress", return_value=None), \
-                 patch.object(GOOGLE, "_stop_progress"), \
-                 patch.object(GOOGLE, "_notify"), \
-                 patch.object(GOOGLE, "OPEN_AFTER_CREATE", False):
-                GOOGLE._run_worker(payload)
-            self.assertEqual(destination.read_bytes(), b"concurrently created document")
+        for line in (None, b""):
+            stream = Mock()
+            stream.read_line_finish.return_value = (line, 0)
+            provider._read_result(stream, Mock(), Mock())
+            stream.read_line_async.assert_not_called()

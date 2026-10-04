@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import json
 
 from .config import (
     delete_profile,
@@ -35,6 +36,7 @@ def print_usage() -> None:
   talaryn mount-foreground PROFILE
   talaryn unmount-raw PROFILE
   talaryn google-export PROFILE LOCAL_LINK_PATH
+  talaryn google-create PROFILE LOCAL_FOLDER KIND [WINDOW_CONTEXT_JSON]
   talaryn compare [LOCAL_FILE_PATH ...]
   talaryn monitor
 """
@@ -86,6 +88,26 @@ def main(argv: list[str] | None = None) -> None:
         from .google_export import run_google_export
 
         raise SystemExit(run_google_export(profile, args[2]))
+
+    if cmd == "google-create":
+        if len(args) not in (4, 5):
+            print_usage()
+            raise SystemExit(1)
+        from .google_create import KINDS, relative_folder
+        try:
+            profile = get_profile(args[1])
+            relative_folder(profile, args[2])
+            if args[3] not in KINDS:
+                raise ValueError("Invalid Google document kind")
+            context = json.loads(args[4]) if len(args) == 5 else {}
+            if not isinstance(context, dict):
+                raise ValueError("Invalid window context")
+        except (KeyError, ValueError) as error:
+            print(str(error), file=sys.stderr)
+            raise SystemExit(1)
+        apply_toolkit_language()
+        from .google_create_dialog import run_google_create
+        raise SystemExit(run_google_create(args[1], profile, args[2], args[3], context))
 
     if cmd == "compare":
         if not load_settings().get("context_file_comparison", False):

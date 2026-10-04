@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Replace the separate "New Google" naming and progress dialogs with one
+  asynchronous GTK window using Talaryn branding and desktop identity.
+- Place the creation window near the pointer on X11 and use the originating
+  Nautilus window as its native parent on X11 and Wayland when available.
+- Refresh the affected rclone VFS directory and Nautilus view after creating
+  a Google document. A failed refresh can be retried without uploading again.
+
 ## 1.0.0 - 2026-09-28
 
 First public release of Talaryn, a Linux desktop application for mounting

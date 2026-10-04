@@ -11,6 +11,7 @@ APP = "talaryn"
 APP_DISPLAY_NAME = "Talaryn"
 APP_ID = "io.github.k_krakowski.Talaryn"
 COMPARISON_APP_ID = f"{APP_ID}.Comparison"
+GOOGLE_CREATE_APP_ID = f"{APP_ID}.GoogleCreate"
 APP_ICON_NAME = "talaryn"
 APP_ICON_FILE = "talaryn-app-icon.svg"
 APP_INDICATOR_ICON_NAME = Path(APP_ICON_FILE).stem

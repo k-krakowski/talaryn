@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Talaryn Google Document
+Name[pl]=Dokument Google Talaryn
+Name[ru]=Документ Google Talaryn
+Comment=Create a Google document in a mounted folder
+Exec=@EXEC@ google-create
+TryExec=talaryn
+Icon=talaryn
+Terminal=false
+NoDisplay=true
+Categories=System;FileManager;FileTools;
+StartupNotify=true
+StartupWMClass=io.github.k_krakowski.Talaryn.GoogleCreate

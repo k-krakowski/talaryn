@@ -123,7 +123,10 @@ Click a screenshot to open it at full size.
   - A recovery notification after a Google document link is deleted or moved
     outside its mount, reminding the user that the original can be restored
     from Google Drive Trash.
-  - "New Google" document creation inside Google Drive mounts.
+  - "New Google" document creation inside Google Drive mounts, with one branded
+    window for naming and progress, followed by a targeted directory refresh.
+    On X11 the window opens near the pointer; on Wayland it is attached to the
+    originating Nautilus window when a parent handle is available.
   - SFTP context actions: open matching remote path in an external terminal and
     copy the corresponding rclone remote path.
 - English, Polish, and Russian translations.

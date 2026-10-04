@@ -693,5 +693,14 @@
   "file_name_prompt": "Имя:",
   "template_missing": "Шаблон не найден",
   "file_not_found": "Файл не найден: {path}",
-  "google_file_exists": "Файл с именем «{title}» уже существует. Выберите другое имя."
+  "google_file_exists": "Файл с именем «{title}» уже существует. Выберите другое имя.",
+  "google_name_invalid": "Введите допустимое имя документа.",
+  "google_create_invalid_folder": "Выберите папку внутри подключённого Google Диска.",
+  "google_name_checking": "Проверка имени…",
+  "google_folder_refreshing": "Обновление папки…",
+  "google_file_open_preparing": "Подготовка к открытию документа…",
+  "google_refresh_failed": "Документ создан, но обновить папку не удалось. Повторите обновление или проверьте документ на Google Диске.",
+  "google_create_button": "Создать",
+  "google_refresh_retry": "Обновить папку ещё раз",
+  "google_create_launch_failed": "Не удалось открыть окно создания документа Google Talaryn."
 }
