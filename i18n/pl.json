@@ -702,5 +702,10 @@
   "google_refresh_failed": "Dokument został utworzony, ale nie udało się odświeżyć katalogu. Ponów odświeżanie lub sprawdź dokument w Dysku Google.",
   "google_create_button": "Utwórz",
   "google_refresh_retry": "Odśwież katalog ponownie",
-  "google_create_launch_failed": "Nie udało się uruchomić okna tworzenia dokumentu Google Talaryn."
+  "google_create_launch_failed": "Nie udało się uruchomić okna tworzenia dokumentu Google Talaryn.",
+  "sync_google_created": "Utworzono dokument Google",
+  "sync_group_creation": "tworzenie: {count}",
+  "filter_create": "Tworzenie",
+  "google_history_save_failed": "Dokument został utworzony, ale nie udało się zapisać wpisu w historii: {error}",
+  "google_creation_not_confirmed": "Nie potwierdzono utworzenia nowego dokumentu. Dokument o tej nazwie mógł zostać utworzony równocześnie. Przed ponowieniem sprawdź Dysk Google."
 }

@@ -5,6 +5,7 @@ from unittest.mock import Mock, patch
 
 from talaryn.app import (
     ActivityRow,
+    ActivityGroupRow,
     CACHE_AGE_PRESETS,
     CACHE_SIZE_PRESETS,
     PRESETS,
@@ -31,6 +32,17 @@ from talaryn.icons import icon_path
 
 
 class AppHelperTests(unittest.TestCase):
+    def test_google_creation_has_its_own_history_label_and_group_summary(self) -> None:
+        row = Mock()
+        row.window.activity_time.return_value = ""
+        event = {"operation": "create", "state": "completed", "timestamp": 1}
+        with patch("talaryn.app.tr", side_effect=lambda key, **_kwargs: key):
+            self.assertEqual(ActivityRow._status_text(row, event), "sync_google_created")
+            summary = ActivityGroupRow._summary(row, {
+                "operation": "create", "item_count": 1, "completed_count": 1,
+            })
+        self.assertIn("sync_group_creation", summary)
+
     def test_sponsor_reminder_becomes_due_after_two_weeks(self) -> None:
         state = {"sponsor_first_used_at": 100.0}
         due_at = 100.0 + SPONSOR_INITIAL_DELAY_SECONDS

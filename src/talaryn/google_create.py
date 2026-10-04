@@ -6,11 +6,15 @@ import json
 import os
 from pathlib import Path
 import shlex
+import sqlite3
 import subprocess
 import time
 from typing import Callable
 import zipfile
+from uuid import uuid4
 
+from .activity_store import ActivityStore
+from .icons import DEFAULT_REMOTE_ICON_NAME
 from .i18n import tr
 from .rc import rc_call
 from .util import expand_path
@@ -63,7 +67,7 @@ def _run(command: list[str], timeout: float) -> subprocess.CompletedProcess:
                           stderr=subprocess.PIPE, text=True, check=False, timeout=timeout)
 
 
-def _local_names(profile: dict, title: str, ext: str) -> set[str]:
+def _export_formats(profile: dict, ext: str) -> list[str]:
     # Google profiles normally expose links; custom mounts may export documents.
     formats = ["link.html", ext]
     try:
@@ -75,7 +79,59 @@ def _local_names(profile: dict, title: str, ext: str) -> set[str]:
                 formats = args[index + 1].split(",")
     except ValueError:
         pass
-    return {f"{title}.{value.strip()}" for value in formats if value.strip()}
+    return [value.strip() for value in formats if value.strip()]
+
+
+def _local_names(profile: dict, title: str, ext: str) -> set[str]:
+    return {f"{title}.{value}" for value in _export_formats(profile, ext)}
+
+
+def _copied_new_file(log: str) -> bool:
+    # --ignore-existing returns success even when a concurrent creation skips upload.
+    for line in log.splitlines():
+        try:
+            entry = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(entry, dict) and str(entry.get("msg", "")).startswith("Copied (new)"):
+            return True
+    return False
+
+
+def _save_creation_event(profile_id: str, profile: dict, folder: Path,
+                         title: str, kind: str, timestamp: float,
+                         local_path: Path | None) -> None:
+    relative = relative_folder(profile, folder)
+    if local_path is None:
+        formats = _export_formats(profile, KINDS[kind]["ext"])
+        extension = formats[0] if formats else "link.html"
+        local_path = folder / f"{title}.{extension}"
+    path = relative / local_path.name
+    icon = str(profile.get("icon", DEFAULT_REMOTE_ICON_NAME))
+    ActivityStore().save_events([{
+        "event_id": f"{profile_id}:google-create:{uuid4().hex}",
+        "profile_id": profile_id,
+        "profile_label": str(profile.get("label", profile_id)),
+        "profile_icon": icon,
+        "mount_dir": expand_path(str(profile["mount_dir"])),
+        "path": path.as_posix(),
+        "local_path": str(local_path),
+        "reveal_path": str(local_path),
+        "name": local_path.name,
+        "timestamp": timestamp,
+        "state": "completed",
+        "operation": "create",
+        "direction": "remote",
+        "source": "Talaryn",
+        "source_icon": "talaryn",
+        "destination": str(local_path),
+        "destination_icon": icon,
+        "google_kind": kind,
+        "size": 0,
+        "size_known": False,
+        "tries": 0,
+        "error": "",
+    }])
 
 
 def refresh_created_file(profile_id: str, profile: dict, folder: Path,
@@ -122,18 +178,27 @@ def create_google_file(profile_id: str, profile: dict, folder_path: str | Path,
             return CreationResult(False, existing.stderr[-500:] or tr("rclone_unknown_error"))
         progress(tr("google_file_creating_name", title=title))
         uploaded = _run(["rclone", "copyto", "--ignore-existing", str(template), dest,
-                         f"--drive-import-formats={ext}", f"--drive-export-formats={ext}"], 120)
+                         f"--drive-import-formats={ext}", f"--drive-export-formats={ext}",
+                         "--use-json-log", "--log-level=INFO", "--log-file=", "--stats=0"], 120)
         if uploaded.returncode != 0:
             return CreationResult(False, uploaded.stderr[-500:] or tr("rclone_unknown_error"))
+        if not _copied_new_file(uploaded.stderr):
+            return CreationResult(False, tr("google_creation_not_confirmed"))
     except (OSError, subprocess.TimeoutExpired, ValueError, KeyError) as error:
         return CreationResult(False, str(error))
 
     # After upload, an unavailable RC socket or browser must never invite another upload.
+    created_at = time.time()
     progress(tr("google_folder_refreshing"))
     try:
         local_path = refresh_created_file(profile_id, profile, folder, title, ext)
     except (OSError, RuntimeError, ValueError, AttributeError, TypeError):
         local_path = None
+    history_warning = ""
+    try:
+        _save_creation_event(profile_id, profile, folder, title, kind, created_at, local_path)
+    except (OSError, RuntimeError, sqlite3.Error) as error:
+        history_warning = tr("google_history_save_failed", error=str(error))
     if local_path is not None:
         visible(local_path)
     progress(tr("google_file_open_preparing"))
@@ -151,7 +216,7 @@ def create_google_file(profile_id: str, profile: dict, folder_path: str | Path,
         if attempt < 2:
             time.sleep(0.5)
     url = cfg["url_template"].format(file_id=file_id) if file_id else None
-    warnings = []
+    warnings = [history_warning] if history_warning else []
     if local_path is None:
         warnings.append(tr("google_refresh_failed"))
     if url is None:

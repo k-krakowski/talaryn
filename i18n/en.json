@@ -702,5 +702,10 @@
   "google_refresh_failed": "The document was created, but the folder could not be refreshed. Retry refreshing or check the document in Google Drive.",
   "google_create_button": "Create",
   "google_refresh_retry": "Refresh folder again",
-  "google_create_launch_failed": "Could not start the Talaryn Google document dialog."
+  "google_create_launch_failed": "Could not start the Talaryn Google document dialog.",
+  "sync_google_created": "Google document created",
+  "sync_group_creation": "creation: {count}",
+  "filter_create": "Creation",
+  "google_history_save_failed": "The document was created, but its history entry could not be saved: {error}",
+  "google_creation_not_confirmed": "No new document creation was confirmed. A document with this name may have been created concurrently. Check Google Drive before trying again."
 }

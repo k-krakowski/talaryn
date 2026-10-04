@@ -702,5 +702,10 @@
   "google_refresh_failed": "Документ создан, но обновить папку не удалось. Повторите обновление или проверьте документ на Google Диске.",
   "google_create_button": "Создать",
   "google_refresh_retry": "Обновить папку ещё раз",
-  "google_create_launch_failed": "Не удалось открыть окно создания документа Google Talaryn."
+  "google_create_launch_failed": "Не удалось открыть окно создания документа Google Talaryn.",
+  "sync_google_created": "Документ Google создан",
+  "sync_group_creation": "создание: {count}",
+  "filter_create": "Создание",
+  "google_history_save_failed": "Документ создан, но сохранить запись в истории не удалось: {error}",
+  "google_creation_not_confirmed": "Создание нового документа не подтверждено. Возможно, документ с таким именем был создан одновременно. Перед повторной попыткой проверьте Google Диск."
 }

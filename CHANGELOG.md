@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Record successful "New Google" document creations in activity history, with
+  a creation filter and labels. Refresh retries do not create duplicate entries.
+
 - Replace the separate "New Google" naming and progress dialogs with one
   asynchronous GTK window using Talaryn branding and desktop identity.
 - Place the creation window near the pointer on X11 and use the originating

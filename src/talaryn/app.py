@@ -7310,6 +7310,7 @@ class ActivityRow(Gtk.ListBoxRow):
             icon_name={
                 "copy": "view-refresh-symbolic",
                 "modify": "document-edit-symbolic",
+                "create": "document-new-symbolic",
                 "rename": "document-edit-symbolic",
                 "delete": "user-trash-symbolic",
             }.get(str(item.get("operation", "copy")), "document-send-symbolic")
@@ -7396,6 +7397,8 @@ class ActivityRow(Gtk.ListBoxRow):
             text = tr("sync_deleted")
         elif operation == "modify":
             text = tr("sync_modified")
+        elif operation == "create":
+            text = tr("sync_google_created")
         else:
             text = tr("sync_copied")
 
@@ -7712,6 +7715,7 @@ class ActivityGroupRow(Gtk.ListBoxRow):
         operation_key = {
             "copy": "sync_group_synchronization",
             "modify": "sync_group_modification",
+            "create": "sync_group_creation",
             "rename": "sync_group_rename",
             "delete": "sync_group_deletion",
         }.get(
@@ -8336,6 +8340,7 @@ class MainWindow(Adw.ApplicationWindow):
             ("", tr("filter_all_operations")),
             ("copy", tr("filter_copy")),
             ("modify", tr("filter_modify")),
+            ("create", tr("filter_create")),
             ("rename", tr("filter_rename")),
             ("delete", tr("filter_delete")),
         )
